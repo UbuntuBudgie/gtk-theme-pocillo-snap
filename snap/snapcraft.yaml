@@ -1,12 +1,12 @@
 name: gtk-theme-pocillo
 architectures:
   - all
-version: '0.13.8'
+version: '0.14.1'
 summary: Pocillo GTK theme for GTK Snaps
 description: |
   A snap that exports the Pocillo GTK theme.
 
-base: core18
+base: core20
 grade: stable
 confinement: strict
 
@@ -32,6 +32,17 @@ slots:
         - $SNAP/share/themes/Pocillo-light
         - $SNAP/share/themes/Pocillo-light-slim
 
+  gtk-4-themes:
+    interface: content
+    source:
+      read:
+        - $SNAP/share/themes/Pocillo
+        - $SNAP/share/themes/Pocillo-slim
+        - $SNAP/share/themes/Pocillo-dark
+        - $SNAP/share/themes/Pocillo-dark-slim
+        - $SNAP/share/themes/Pocillo-light
+        - $SNAP/share/themes/Pocillo-light-slim
+
 parts:
      
   # Pocillo gtk theme
@@ -47,7 +58,7 @@ parts:
     stage:
       - share/gtk2/*/gtk-2.0
       - share/themes/*/gtk-3*
-#      - share/themes/*/gtk-4*
+      - share/themes/*/gtk-4*
 
 
   utils:
