@@ -46,10 +46,12 @@ slots:
 parts:
      
   # Pocillo gtk theme
+  #source: http://de.archive.ubuntu.com/ubuntu/pool/universe/b/budgie-artwork/ubuntu-budgie-themes_$SNAPCRAFT_PROJECT_VERSION_all.deb
+    
   pocillo-gtk-theme:
     after: [utils]
     plugin: dump
-    source: http://de.archive.ubuntu.com/ubuntu/pool/universe/b/budgie-artwork/ubuntu-budgie-themes_$SNAPCRAFT_PROJECT_VERSION_all.deb
+    source: https://launchpad.net/~ubuntubudgie-dev/+archive/ubuntu/unstable-test/+files/ubuntu-budgie-themes_$SNAPCRAFT_PROJECT_VERSION_all.deb
     override-build: |
         snapcraftctl build
         mkdir -p $SNAPCRAFT_PART_INSTALL/share/themes
