@@ -33,20 +33,6 @@ slots:
         - $SNAP/share/themes/Pocillo-dark-slim
         - $SNAP/share/themes/Pocillo-light
         - $SNAP/share/themes/Pocillo-light-slim
-  content:
-    allow-auto-connection:
-      -
-        plug-attributes:
-          content: $SLOT(content)
-        slot-attributes:
-          content: gtk-2-themes
-        slots-per-plug: "*"
-      -
-        plug-attributes:
-          content: $SLOT(content)
-        slot-attributes:
-          content: gtk-3-themes
-        slots-per-plug: "*"
 
 parts:
      
