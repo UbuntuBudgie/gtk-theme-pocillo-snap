@@ -33,17 +33,20 @@ slots:
         - $SNAP/share/themes/Pocillo-dark-slim
         - $SNAP/share/themes/Pocillo-light
         - $SNAP/share/themes/Pocillo-light-slim
-
-  gtk-4-themes:
-    interface: content
-    source:
-      read:
-        - $SNAP/share/themes/Pocillo
-        - $SNAP/share/themes/Pocillo-slim
-        - $SNAP/share/themes/Pocillo-dark
-        - $SNAP/share/themes/Pocillo-dark-slim
-        - $SNAP/share/themes/Pocillo-light
-        - $SNAP/share/themes/Pocillo-light-slim
+  content:
+    allow-auto-connection:
+      -
+        plug-attributes:
+          content: $SLOT(content)
+        slot-attributes:
+          content: gtk-2-themes
+        slots-per-plug: "*"
+      -
+        plug-attributes:
+          content: $SLOT(content)
+        slot-attributes:
+          content: gtk-3-themes
+        slots-per-plug: "*"
 
 parts:
      
@@ -53,6 +56,7 @@ parts:
   pocillo-gtk-theme:
     after: [utils]
     plugin: dump
+    # we need to use a PPA as a base since snap cannot handle the deb compression format in the regular archive
     source: https://launchpad.net/~ubuntubudgie-dev/+archive/ubuntu/unstable-test/+files/ubuntu-budgie-themes_$SNAPCRAFT_PROJECT_VERSION_all.deb
     override-build: |
         snapcraftctl build
@@ -62,7 +66,6 @@ parts:
     stage:
       - share/gtk2/*/gtk-2.0
       - share/themes/*/gtk-3*
-      - share/themes/*/gtk-4*
 
 
   utils:
