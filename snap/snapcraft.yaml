@@ -1,7 +1,7 @@
 name: gtk-theme-pocillo
 architectures:
   - all
-version: '0.14.3.2'
+version: '0.14.4.1'
 summary: Pocillo GTK theme for GTK Snaps
 description: |
   A snap that exports the Pocillo GTK theme.
