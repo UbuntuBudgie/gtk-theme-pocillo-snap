@@ -1,5 +1,6 @@
 name: gtk-theme-pocillo
-base: core24
+build-base: core24
+base: bare
 version: '0.21.0'
 platforms:
   amd64:
