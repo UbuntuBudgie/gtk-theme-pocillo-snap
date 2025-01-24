@@ -1,14 +1,13 @@
 name: gtk-theme-pocillo
-architectures:
-  - all
-version: '0.14.4.1'
+base: core24
+version: '0.21.0'
+platforms:
+  amd64:
+    build-on: [amd64]
+    build-for: [amd64]
 summary: Pocillo GTK theme for GTK Snaps
 description: |
   A snap that exports the Pocillo GTK theme.
-
-base: bare
-build-base: core20
-
 grade: stable
 confinement: strict
 
@@ -18,47 +17,42 @@ slots:
     source:
       read:
         - $SNAP/share/gtk2/Pocillo
-        - $SNAP/share/gtk2/Pocillo-slim
         - $SNAP/share/gtk2/Pocillo-dark
-        - $SNAP/share/gtk2/Pocillo-slim-dark
         - $SNAP/share/gtk2/Pocillo-light
+        - $SNAP/share/gtk2/Pocillo-slim
+        - $SNAP/share/gtk2/Pocillo-slim-dark
         - $SNAP/share/gtk2/Pocillo-slim-light
   gtk-3-themes:
     interface: content
     source:
       read:
         - $SNAP/share/themes/Pocillo
-        - $SNAP/share/themes/Pocillo-slim
         - $SNAP/share/themes/Pocillo-dark
-        - $SNAP/share/themes/Pocillo-slim-dark
         - $SNAP/share/themes/Pocillo-light
+        - $SNAP/share/themes/Pocillo-slim
+        - $SNAP/share/themes/Pocillo-slim-dark
         - $SNAP/share/themes/Pocillo-slim-light
-
 parts:
-     
-  # Pocillo gtk theme
-  #source: http://de.archive.ubuntu.com/ubuntu/pool/universe/b/budgie-artwork/ubuntu-budgie-themes_$SNAPCRAFT_PROJECT_VERSION_all.deb
-    
-  pocillo-gtk-theme:
-    after: [utils]
+  gtk-2-themes:
     plugin: dump
-    # we need to use a PPA as a base since snap cannot handle the deb compression format in the regular archive
-    source: https://launchpad.net/~ubuntubudgie-dev/+archive/ubuntu/unstable-test/+files/ubuntu-budgie-themes_$SNAPCRAFT_PROJECT_VERSION_all.deb
+    source: http://de.archive.ubuntu.com/ubuntu/pool/universe/b/budgie-artwork/ubuntu-budgie-themes_0.21.0_all.deb
     override-build: |
-        snapcraftctl build
-        mkdir -p $SNAPCRAFT_PART_INSTALL/share/themes
-        mv $SNAPCRAFT_PART_INSTALL/usr/share/themes/Pocillo* $SNAPCRAFT_PART_INSTALL/share/themes/
-        $SNAPCRAFT_STAGE/split-gtk-theme.sh $SNAPCRAFT_PART_INSTALL
+      snapcraftctl build
+      pwd
+      ls -l
+      mkdir -p $CRAFT_PART_INSTALL/share/gtk2
+      mv -f $CRAFT_PART_INSTALL/usr/share/themes/Pocillo* $CRAFT_PART_INSTALL/share/gtk2
     stage:
       - share/gtk2/*/gtk-2.0
-      - share/themes/*/gtk-3*
-
-
-  utils:
+  gtk-3-themes:
     plugin: dump
-    source: utils
-    prime:
-      - -*
-    build-packages:
-      - try: [gtk-update-icon-cache]
-      - else: [libgtk-3-bin]
+    source: http://de.archive.ubuntu.com/ubuntu/pool/universe/b/budgie-artwork/ubuntu-budgie-themes_0.21.0_all.deb
+    override-build: |
+      snapcraftctl build
+      pwd
+      ls -l
+      mkdir -p $CRAFT_PART_INSTALL/share/themes
+      mv -f $CRAFT_PART_INSTALL/usr/share/themes/Pocillo* $CRAFT_PART_INSTALL/share/themes
+    stage:
+      - share/themes/*/gtk-3.0
+      - share/themes/*/gtk-4.0
