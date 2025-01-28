@@ -3,9 +3,9 @@ build-base: core24
 base: bare
 version: '0.21.0'
 platforms:
-  amd64:
+  all:
     build-on: [amd64]
-    build-for: [amd64]
+    build-for: [all]
 summary: Pocillo GTK theme for GTK Snaps
 description: |
   A snap that exports the Pocillo GTK theme.
