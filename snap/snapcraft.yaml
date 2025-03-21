@@ -1,7 +1,7 @@
 name: gtk-theme-pocillo
 build-base: core24
 base: bare
-version: '0.21.0'
+version: '0.21.1'
 platforms:
   all:
     build-on: [amd64]
@@ -36,7 +36,7 @@ slots:
 parts:
   gtk-2-themes:
     plugin: dump
-    source: http://de.archive.ubuntu.com/ubuntu/pool/universe/b/budgie-artwork/ubuntu-budgie-themes_0.21.0_all.deb
+    source: http://de.archive.ubuntu.com/ubuntu/pool/universe/b/budgie-artwork/ubuntu-budgie-themes_0.21.1_all.deb
     override-build: |
       snapcraftctl build
       pwd
@@ -44,10 +44,10 @@ parts:
       mkdir -p $CRAFT_PART_INSTALL/share/gtk2
       mv -f $CRAFT_PART_INSTALL/usr/share/themes/Pocillo* $CRAFT_PART_INSTALL/share/gtk2
     stage:
-      - share/gtk2/*/gtk-2.0
+      - share/gtk2/
   gtk-3-themes:
     plugin: dump
-    source: http://de.archive.ubuntu.com/ubuntu/pool/universe/b/budgie-artwork/ubuntu-budgie-themes_0.21.0_all.deb
+    source: http://de.archive.ubuntu.com/ubuntu/pool/universe/b/budgie-artwork/ubuntu-budgie-themes_0.21.1_all.deb
     override-build: |
       snapcraftctl build
       pwd
@@ -55,5 +55,4 @@ parts:
       mkdir -p $CRAFT_PART_INSTALL/share/themes
       mv -f $CRAFT_PART_INSTALL/usr/share/themes/Pocillo* $CRAFT_PART_INSTALL/share/themes
     stage:
-      - share/themes/*/gtk-3.0
-      - share/themes/*/gtk-4.0
+      - share/themes/
