@@ -1,7 +1,7 @@
 name: gtk-theme-pocillo
 build-base: core24
 base: bare
-version: '0.21.1'
+adopt-info: gtk-theme-pocillo
 platforms:
   all:
     build-on: [amd64]
@@ -11,48 +11,34 @@ description: |
   A snap that exports the Pocillo GTK theme.
 grade: stable
 confinement: strict
+compression: lzo
 
 slots:
-  gtk-2-themes:
-    interface: content
-    source:
-      read:
-        - $SNAP/share/gtk2/Pocillo
-        - $SNAP/share/gtk2/Pocillo-dark
-        - $SNAP/share/gtk2/Pocillo-light
-        - $SNAP/share/gtk2/Pocillo-slim
-        - $SNAP/share/gtk2/Pocillo-slim-dark
-        - $SNAP/share/gtk2/Pocillo-slim-light
   gtk-3-themes:
     interface: content
     source:
       read:
-        - $SNAP/share/themes/Pocillo
-        - $SNAP/share/themes/Pocillo-dark
-        - $SNAP/share/themes/Pocillo-light
-        - $SNAP/share/themes/Pocillo-slim
-        - $SNAP/share/themes/Pocillo-slim-dark
-        - $SNAP/share/themes/Pocillo-slim-light
+        - $SNAP/usr/share/themes/Pocillo
+        - $SNAP/usr/share/themes/Pocillo-dark
+        - $SNAP/usr/share/themes/Pocillo-darkest
+        - $SNAP/usr/share/themes/Pocillo-frappe
+        - $SNAP/usr/share/themes/Pocillo-light
+        - $SNAP/usr/share/themes/Pocillo-slim
+        - $SNAP/usr/share/themes/Pocillo-slim-dark
+        - $SNAP/usr/share/themes/Pocillo-slim-darkest
+        - $SNAP/usr/share/themes/Pocillo-slim-frappe
+        - $SNAP/usr/share/themes/Pocillo-slim-light
+
+
 parts:
-  gtk-2-themes:
-    plugin: dump
-    source: http://de.archive.ubuntu.com/ubuntu/pool/universe/b/budgie-artwork/ubuntu-budgie-themes_0.21.1_all.deb
+  gtk-theme-pocillo:
+    plugin: meson
+    source: https://github.com/UbuntuBudgie/pocillo-gtk-theme.git
+    build-packages: [meson, sass, npm]
+    meson-parameters: [--prefix=/usr]
     override-build: |
-      snapcraftctl build
-      pwd
-      ls -l
-      mkdir -p $CRAFT_PART_INSTALL/share/gtk2
-      mv -f $CRAFT_PART_INSTALL/usr/share/themes/Pocillo* $CRAFT_PART_INSTALL/share/gtk2
-    stage:
-      - share/gtk2/
-  gtk-3-themes:
-    plugin: dump
-    source: http://de.archive.ubuntu.com/ubuntu/pool/universe/b/budgie-artwork/ubuntu-budgie-themes_0.21.1_all.deb
-    override-build: |
-      snapcraftctl build
-      pwd
-      ls -l
-      mkdir -p $CRAFT_PART_INSTALL/share/themes
-      mv -f $CRAFT_PART_INSTALL/usr/share/themes/Pocillo* $CRAFT_PART_INSTALL/share/themes
-    stage:
-      - share/themes/
+      craftctl default
+      craftctl set version=$(date +%Y-%m-%d)
+    prime:
+      - usr/share/themes/*/gtk-3.0
+      - usr/share/themes/*/gtk-4.0
